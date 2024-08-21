@@ -4,8 +4,10 @@ public class Main {
 
         public static void main(String[] args) throws ParseException {
             System.out.println("Programm Auto Service");
-            ServiceUI serviceUI = new ServiceUI();
-            serviceUI.start();
+            Builder builder=new Builder();
+            MenuController menuController=new MenuController(builder);
+            menuController.run();
+
         }
     }
 
