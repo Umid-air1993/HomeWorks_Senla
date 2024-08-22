@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AddGarageAction implements Action {
@@ -7,7 +8,9 @@ public class AddGarageAction implements Action {
     }
     @Override
     public void execute(){
-        Scanner scanner = new Scanner(System.in);
+      try {
+          Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter Garage ID: ");
         int garageID = scanner.nextInt();
         System.out.println("Enter Garage Name: ");
@@ -15,6 +18,8 @@ public class AddGarageAction implements Action {
         Garage garage = new Garage(garageID, garageName);
         dataBase.addGarage(garage);
         System.out.println("Garage added");
+    }catch (InputMismatchException e){
+          System.out.println("Please enter a valid number");}
     }
 
 

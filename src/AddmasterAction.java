@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AddmasterAction implements Action{
@@ -7,7 +8,9 @@ public class AddmasterAction implements Action{
     }
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
+     try {
+         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter master id");
         int masterId = scanner.nextInt();
 
@@ -16,6 +19,8 @@ public class AddmasterAction implements Action{
         Master master=new Master(masterId,masterName);
         dataBase.addMaster(master);
         System.out.println("Master added! ");
+     }catch (InputMismatchException e){
+         System.out.println("Please enter a valid number");}
 
     }
 }

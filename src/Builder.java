@@ -11,6 +11,7 @@ public class Builder {
         addMenu.addMenuItem(new MenuItem("Add the master",new AddmasterAction(dataBase),rootMenu));
         addMenu.addMenuItem(new MenuItem("Add the garage",new AddGarageAction(dataBase),rootMenu));
         addMenu.addMenuItem(new MenuItem("Add the Order",new AddOrderAction(dataBase),rootMenu));
+        addMenu.addMenuItem(new MenuItem("Add the Import",new AddOrderAction(dataBase),rootMenu));
 
         Menu viewMenu = new Menu("View ");
         viewMenu.addMenuItem(new MenuItem("Free garage",new GetfreeGarageAction(dataBase),rootMenu));
