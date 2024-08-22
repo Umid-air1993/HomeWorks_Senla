@@ -4,7 +4,7 @@ import java.util.Date;
 public class Order {
 
        private int id;
-    private String status;
+    private String name;
     private LocalDate startDate;
     private LocalDate endDate;
     private double price;
@@ -14,10 +14,10 @@ public class Order {
     private boolean deleted;
     private boolean cancelled;
 
-    public Order(int id, String status, LocalDate startDate, LocalDate endDate, double price, Master master, Garage garage) {
+    public Order(int id, String name, LocalDate startDate, LocalDate endDate, double price, Master master, Garage garage) {
 
         this.id = id;
-        this.status = status;
+        this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
@@ -33,8 +33,8 @@ public class Order {
         return id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getName() {
+        return name;
     }
     public LocalDate getStartDate() {
         return startDate;
