@@ -85,10 +85,10 @@ public class DataBase {
                 LocalDate startDaate=LocalDate.parse(parts[2]);
                 LocalDate endDaate=LocalDate.parse(parts[3]);
                 double price=Double.parseDouble(parts[4]);
-                int masterid=Integer.parseInt(parts[5]);
-                int garageId=Integer.parseInt(parts[6]);
-                Master master=findMaster(masterid);
-                Garage garage=findGarage(garageId);
+                int masterid=Integer.parseInt(parts[5]);  //*
+                int garageId=Integer.parseInt(parts[6]); //*
+                Master master=findMaster(masters,name );
+                Garage garage=findGarage(garages,name);
                Order order=new Order(id,name,startDaate,endDaate,price,master,garage);
                 addOrder(order);
             }
@@ -122,10 +122,26 @@ public class DataBase {
             System.out.println("Error export orders!!!"+e.getMessage());
         }
     }
-
-    private Master findMaster(int masterid) {
-        return null;
-    } private Garage findGarage(int garageId) {
+    public Master findMaster(List<Master> masters, String name) {
+        for (Master master : masters) {
+            if (master.getName().equals(name)){
+                return master;
+            }
+        }
         return null;
     }
+    public Garage findGarage(List<Garage> garages, String name) {
+        for (Garage garage : garages) {
+            if (garage.getName().equals(name)){
+                return garage;
+            }
+        }
+        return null;
+    }
+
+//    private Master findMaster(int masterid) {
+//        return null;
+//    } private Garage findGarage(int garageId) {
+//        return null;
+//    }
 }

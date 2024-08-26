@@ -3,9 +3,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class GetOrdersAction implements Action {
+public class GetSortOrdersAction implements Action {
     private DataBase dataBase;
-    public GetOrdersAction(DataBase dataBase) {
+    public GetSortOrdersAction(DataBase dataBase) {
         this.dataBase = dataBase;
     }
 @Override

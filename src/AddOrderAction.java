@@ -24,8 +24,12 @@ public class AddOrderAction implements Action{
             LocalDate startDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             System.out.println("Enter end date of the order(yyyy-MM-dd): ");
             LocalDate endDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
             System.out.println("Enter price of the order: ");
             double price = scanner.nextDouble();
+            if (price<0){
+                throw new Exception("Price can not be negative");
+            }
             scanner.nextLine();
             System.out.println("Enter name of the master");
             String masterName = scanner.nextLine();
@@ -38,11 +42,14 @@ public class AddOrderAction implements Action{
             System.out.println("Order added");
         }catch (
     InputMismatchException e){
-        System.out.println("Please enter a valid number");}
+        System.out.println("Please enter a valid number");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 }
 
 
-    private Master findMaster(List<Master> masters, String name) {
+    public Master findMaster(List<Master> masters, String name) {
         for (Master master : masters) {
             if (master.getName().equals(name)){
                 return master;
@@ -50,7 +57,7 @@ public class AddOrderAction implements Action{
         }
         return null;
     }
-    private Garage findGarage(List<Garage> garages, String name) {
+    public Garage findGarage(List<Garage> garages, String name) {
         for (Garage garage : garages) {
             if (garage.getName().equals(name)){
                 return garage;
