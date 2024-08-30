@@ -3,32 +3,53 @@ import java.util.Scanner;
 
 public class GetOrderAction implements Action{
     private DataBase dataBase;
-    public GetOrderAction(DataBase dataBase) {
+    private AdminService adminService;
+    public GetOrderAction(DataBase dataBase, AdminService adminService) {
         this.dataBase = dataBase;
+        this.adminService = adminService;
     }
     @Override
-    public void execute(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter name Master: ");
-        String name = scanner.nextLine();
-        Master master=findMaster(dataBase.getMasters(),name);
-        if(master == null){
-            for(Order order:dataBase.getOrders()){
-                if(order.getMaster().equals(master)){
-                    System.out.println(order.getMaster()+" "+order.getStartDate()+" "+order.getEndDate()+" "+order.getPrice());
+    public void execute() {
+    Scanner scanner = new Scanner(System.in);
+        System.out.println("Search order by: 1-Master name, 2-Order ID");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice) {
+            case 1:
+                System.out.println("Enter name of Master: ");
+                String masterName = scanner.nextLine();
+                List<Order> orders=dataBase.getOrders();
+                boolean found=false;
+                for(Order order:orders){
+                    if(order.getName().equals(masterName)){
+                        System.out.println( "Order ID: "+order.getId()+", Master: "+
+                                order.getMaster().getName()+", Start Date: "+order.getStartDate()+", End Date: "+order.getEndDate()+
+                                ", Price: "+order.getPrice());
+                        found=true;
 
-                }
-            }
-        }else{
-            System.out.println("Master not found");
+                    }  if ( !found){
+                        System.out.println("No order found fo Master: "+masterName);
+
+                    }
+                }break;
+                case 2:
+                    System.out.println("Enter order ID: ");
+                    int orderID = scanner.nextInt();
+                    List<Order> orders1=dataBase.getOrders();
+                    boolean found1=false;
+                    for (Order order : orders1) {
+                        if (order.getId() == orderID) {
+                            System.out.println( "Order ID: "+order.getId()+", Master: "+
+                                    order.getMaster().getName()+", Start Date: "+order.getStartDate()+", End Date: "+order.getEndDate()+
+                                    ", Price: "+order.getPrice());
+                            found1=true;
+                            break;
+                        }if (!found1){
+                            System.out.println("Order whith ID "+orderID+" is not found");
+                        }
+                    }break;
+            default:
+                System.out.println("Invalid choice");
         }
-    }
-    private Master findMaster(List<Master> masterList, String name){
-        for(Master master:masterList){
-            if (master.getName().equals(name)){
-
-                return master;
-            }
-        }return null;
     }
 }

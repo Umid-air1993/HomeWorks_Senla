@@ -3,27 +3,24 @@ import java.util.Scanner;
 
 public class GetMasterByOrderAction implements  Action{
     private DataBase dataBase;
-    public GetMasterByOrderAction(DataBase dataBase) {
+    private AdminService adminService;
+    public GetMasterByOrderAction(DataBase dataBase, AdminService adminService) {
         this.dataBase = dataBase;
+        this.adminService = adminService;
     }
 
     @Override
     public void execute() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Order ID");
         int orderID = scanner.nextInt();
-        Order order=findOrder(dataBase.getOrders(), orderID);
+        Order order=adminService.findOrder(dataBase.getOrders(), orderID);
         if (order!=null){
             System.out.println(order.getMaster().getName());
         }else {
             System.out.println("Order not found");
         }
     }
-    private Order findOrder(List<Order> orders,int orderID) {
-        for(Order order:orders) {
-            if (order.getId()==orderID){
-                return order;
-            }
-        }
-    return null;}
+
 }

@@ -1,8 +1,7 @@
 public class Master {
     private int id;
-    private   String name;
+    private String name;
     private boolean isBusy;
-
 
 
     Master(int id, String name) {
@@ -18,9 +17,11 @@ public class Master {
     public String getName() {
         return name;
     }
+
     public boolean isBusy() {
         return isBusy;
     }
+
     public void setBusy(boolean busy) {
         this.isBusy = busy;
     }
