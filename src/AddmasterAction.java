@@ -13,13 +13,15 @@ public class AddmasterAction implements Action{
 
         System.out.println("Enter master id");
         int masterId = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("Enter master name: ");
+         System.out.println("Enter master name: ");
         String masterName = scanner.nextLine();
         Master master=new Master(masterId,masterName);
         dataBase.addMaster(master);
         System.out.println("Master added! ");
      }catch (InputMismatchException e){
+
          System.out.println("Please enter a valid number");}
 
     }

@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 public class GetFreePleaceAction implements Action{
    private DataBase dataBase;
-   public GetFreePleaceAction(DataBase dataBase) {
+   private AdminService adminService;
+   public GetFreePleaceAction(DataBase dataBase, AdminService adminService) {
        this.dataBase = dataBase;
+       this.adminService = adminService;
    }
 
        @Override
@@ -13,16 +15,8 @@ public class GetFreePleaceAction implements Action{
            Scanner scanner = new Scanner(System.in);
            System.out.println("Enter Date: ");
            LocalDate  date = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-           int freePleace=0;
-           for (Garage garage : dataBase.getGarages()) {
-               if (!garage.isBusy()){
-                   freePleace++;
-               }
-           }for (Master master : dataBase.getMasters()) {
-               if (!master.isBusy()){
-                   freePleace++;
-               }
-           }
+          DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          int freePleace= adminService.getFreePlace(dataBase,date);
            System.out.println("Number of available free pleaces on the service at : " +date+": "+ freePleace);
 
     }

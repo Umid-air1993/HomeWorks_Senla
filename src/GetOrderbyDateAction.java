@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 public class GetOrderbyDateAction implements Action{
     private DataBase dataBase;
-    public GetOrderbyDateAction(DataBase dataBase) {
+    private AdminService adminService;
+    public GetOrderbyDateAction(DataBase dataBase, AdminService adminService) {
         this.dataBase = dataBase;
+        this.adminService = adminService;
     }
     public void execute() {
         Scanner scanner = new Scanner(System.in);
@@ -18,15 +20,7 @@ public class GetOrderbyDateAction implements Action{
         LocalDate startDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         System.out.println("Enter the end date: ");
         LocalDate endDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        List<Order> orders = dataBase.getOrders();
-        List<Order> ordersByDate = new ArrayList<>();
-        for (Order order:orders){
-            if ((type==1&&order.isDone())||(type==2&&order.isDeleted())||(type==3&&order.isCancelled())){
-                if (order.getStartDate().isAfter(startDate)&&order.getEndDate().isBefore(endDate)){
-                    ordersByDate.add(order);
-                }
-            }
-        }
+      List<Order> ordersByDate = adminService.getOrdersByDateAndType(dataBase, type, startDate, endDate);
         System.out.println("Orders: ");
         for (Order order:ordersByDate){
             System.out.println(order.getId()+"-"+order.getStartDate()+"-"+order.getEndDate()+"-"+order.getPrice());
