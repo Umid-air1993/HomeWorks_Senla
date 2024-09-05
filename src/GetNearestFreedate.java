@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 public class GetNearestFreedate implements Action{
     private DataBase dataBase;
@@ -10,7 +11,13 @@ public class GetNearestFreedate implements Action{
 
     @Override
     public void execute() {
-        LocalDate nearestFreedate = adminService.findNearestFreedate(dataBase);
-        System.out.println("Nearest free date: "+nearestFreedate);
+      try {
+          LocalDate nearestFreedate = adminService.findNearestFreedate(dataBase);
+          System.out.println("Nearest free date: " + nearestFreedate);
+      }catch (NoSuchElementException e) {
+          System.out.println(e.getMessage());
+      }catch (Exception e) {
+          System.out.println("An unexpected error occurred: " +e.getMessage());
+      }
     }
 }

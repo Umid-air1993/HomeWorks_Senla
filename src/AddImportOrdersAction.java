@@ -23,12 +23,6 @@ public class AddImportOrdersAction implements Action {
         }
     }
 
-//        private String askForFileName() {
-//            Scanner scanner=new Scanner(System.in);
-//            System.out.println("Enter the name of the file: ");
-//            scanner.useDelimiter("\n");
-//            String fileName=scanner.next();
-//            return fileName;
-//        }
+
 }
 

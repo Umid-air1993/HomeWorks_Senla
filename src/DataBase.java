@@ -6,43 +6,56 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DataBase {
+public class DataBase implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Master> masters;
     private List<Order> orders;
     private List<Garage> garages;
-     AdminService adminService;
+    private boolean timeOfSetEnable;
+    private int timeOfSet;
+    AdminService adminService;
 
     public DataBase() {
-        this.masters = new ArrayList<Master>();
-        this.orders = new ArrayList<Order>();
-        this.garages = new ArrayList<Garage>();
+        this.masters = new ArrayList<>();
+        this.orders = new ArrayList<>();
+        this.garages = new ArrayList<>();
     }
 
     public List<Master> getMasters() {
+
+        if (masters == null) {
+            System.out.println("masters is null");
+        }
         return masters;
     }
-    public int getMaxMasterId(){
-        if(masters.isEmpty()) {
-        return 0;
-        }return masters.stream().mapToInt(Master::getId).max().orElse(0);
+
+    public int getMaxMasterId() {
+        if (masters.isEmpty()) {
+            return 0;
+        }
+        return masters.stream().mapToInt(Master::getId).max().orElse(0);
     }
 
     public List<Order> getOrders() {
         return orders;
     }
-    public int getMaxOrderId(){
-        if(orders.isEmpty()) {
+
+    public int getMaxOrderId() {
+        if (orders.isEmpty()) {
             return 0;
-        }return orders.stream().mapToInt(Order::getId).max().orElse(0);
+        }
+        return orders.stream().mapToInt(Order::getId).max().orElse(0);
     }
 
     public List<Garage> getGarages() {
         return garages;
     }
-    public List<Integer> getGarageId(){
+
+    public List<Integer> getGarageId() {
         return garages.stream().map(Garage::getId).collect(Collectors.toList());
     }
-    public void removeGarageSpace(int id){
+
+    public void removeGarageSpace(int id) {
         garages.removeIf(g -> g.getId() == id);
     }
 
@@ -64,12 +77,15 @@ public class DataBase {
 
     public void removeOrder(Order order) {
         orders.remove(order);
+    } public void removeOrder1(int order) {
+        orders.remove(order);
     }
 
     public void removeGarage(Garage garage) {
         garages.remove(garage);
     }
-    public List<Order> getSortedOrders(int type){
+
+    public List<Order> getSortedOrders(int type) {
         List<Order> sortedOrders = new ArrayList<>(orders);
         switch (type) {
             case 1:
@@ -83,23 +99,25 @@ public class DataBase {
                 break;
             default:
                 System.out.println("Invalid order type");
-                return  Collections.EMPTY_LIST;
+                return Collections.EMPTY_LIST;
         }
         return sortedOrders;
     }
-        public List<Master> getSortedMasters(int type) {
+
+    public List<Master> getSortedMasters(int type) {
         List<Master> sortMasters = new ArrayList<>(masters);
-            switch (type) {
-                case 1:
-                    Collections.sort(masters, Comparator.comparing(Master::getName));
-                    break;
-                case 2:
-                    Collections.sort(masters, Comparator.comparing(Master::isBusy));
-                    break;
-                case 3:
-                    Collections.sort(masters, Comparator.comparing(Master::getId));
-                    break;
-            }return sortMasters;
+        switch (type) {
+            case 1:
+                Collections.sort(masters, Comparator.comparing(Master::getName));
+                break;
+            case 2:
+                Collections.sort(masters, Comparator.comparing(Master::isBusy));
+                break;
+            case 3:
+                Collections.sort(masters, Comparator.comparing(Master::getId));
+                break;
+        }
+        return sortMasters;
     }
 
     public void importMastersFromCSV(String fileName) {
@@ -150,7 +168,7 @@ public class DataBase {
                 LocalDate startDaate = LocalDate.parse(parts[2]);
                 LocalDate endDaate = LocalDate.parse(parts[3]);
                 double price = Double.parseDouble(parts[4]);
-                Master master = adminService.findMaster(masters, id,name);
+                Master master = adminService.findMaster(masters, id, name);
                 Garage garage = adminService.findGarage(garages, id);
                 Order order = new Order(id, name, startDaate, endDaate, price, master, garage);
                 addOrder(order);
@@ -163,9 +181,16 @@ public class DataBase {
 
     public void exportMastersToCSV(String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Master master : getMasters()) {
+
+            System.out.println("Number of masters: " + masters.size()+", "+masters.size());
+            if (masters.isEmpty()){
+                System.out.println("No masters to export. ");
+                return;
+            }
+            for (Master master : masters) {
                 writer.write(master.getId() + "," + master.getName() + "\n");
             }
+            writer.flush();
         } catch (IOException e) {
             System.out.println("Error export masters!!!" + e.getMessage());
         }
@@ -191,4 +216,23 @@ public class DataBase {
         }
     }
 
+    public boolean isTimeOfSetEnable() {
+        return timeOfSetEnable;
+    }
+
+    public void setTimeOfSetEnable(boolean enable) {
+        this.timeOfSetEnable = enable;
+    }
+
+    public int getTimeOfSet() {
+        return timeOfSet;
+    }
+
+    public void setTimeOfSet(int time) {
+        this.timeOfSet = time;
+    }
+    public void update(DataBase newDataBase) {
+        this.masters = newDataBase.masters;
+        this.garages = newDataBase.garages;
+    }
 }
