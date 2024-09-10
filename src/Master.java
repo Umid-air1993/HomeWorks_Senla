@@ -1,4 +1,6 @@
-public class Master {
+import java.io.Serializable;
+
+public class Master implements Serializable {
     private int id;
     private String name;
     private boolean isBusy;

@@ -54,7 +54,7 @@ public class AddOrderAction implements Action {
                 System.out.println("Master not found.Please enter a valid ID and name");
                 return;
             }
-            System.out.println("Enter name of the garage: ");
+            System.out.println("Enter ID of the garage: ");
             int garageId = scanner.nextInt();
             Garage garage = adminService.findGarage(database.getGarages(), garageId);
             if (garage == null) {
