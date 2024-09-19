@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
 
        private int id;
     private String name;
@@ -13,6 +14,7 @@ public class Order {
     private boolean done;
     private boolean deleted;
     private boolean cancelled;
+    private Date executionTime;
 
     public Order(int id, String name, LocalDate startDate, LocalDate endDate, double price, Master master, Garage garage) {
 
@@ -26,6 +28,7 @@ public class Order {
         this.done = false;
         this.deleted = false;
         this.cancelled = false;
+
 
     }
 
@@ -71,5 +74,13 @@ public class Order {
     }
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public Date getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(Date executionTime) {
+        this.executionTime = executionTime;
     }
 }

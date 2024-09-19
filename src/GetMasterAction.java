@@ -19,8 +19,7 @@ public class GetMasterAction implements Action {
         List<Master> masters = dataBase.getSortedMasters(type);
         System.out.println("Master: ");
         for (Master master : masters) {
-            System.out.println("ID: "+master.getId()+ ", "+master.getName() + " " + (master.isBusy() ? "is busy" : "is not busy"));
-
+            System.out.println("ID: " + master.getId() + ", " + master.getName() + " " + (master.isBusy() ? "is busy" : "is not busy"));
 
         }
     }

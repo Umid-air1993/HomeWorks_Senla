@@ -4,7 +4,7 @@ public class AddExportOrdersAction implements Action {
     private DataBase dataBase;
 
     public AddExportOrdersAction(DataBase dataBase) {
-        this.dataBase = new DataBase();
+        this.dataBase = dataBase;
     }
 
     @Override

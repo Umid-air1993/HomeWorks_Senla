@@ -4,7 +4,7 @@ public class AddExportGaragesAction implements Action {
     private DataBase dataBase;
 
     public AddExportGaragesAction(DataBase dataBase) {
-        this.dataBase = new DataBase();
+        this.dataBase =dataBase;
     }
 
     @Override

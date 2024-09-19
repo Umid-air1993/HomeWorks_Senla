@@ -6,16 +6,16 @@ import java.util.Scanner;
 
 public class AddOrderAction implements Action {
     private DataBase database;
+    private AdminService adminService;
 
-    public AddOrderAction(DataBase database) {
+    public AddOrderAction(DataBase database, AdminService adminService) {
         this.database = database;
+        this.adminService = adminService;
     }
 
     @Override
     public void execute() {
         try {
-
-            AdminService adminService = new AdminService();
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter id of the order: ");
             int id = scanner.nextInt();
@@ -54,7 +54,7 @@ public class AddOrderAction implements Action {
                 System.out.println("Master not found.Please enter a valid ID and name");
                 return;
             }
-            System.out.println("Enter name of the garage: ");
+            System.out.println("Enter ID of the garage: ");
             int garageId = scanner.nextInt();
             Garage garage = adminService.findGarage(database.getGarages(), garageId);
             if (garage == null) {
