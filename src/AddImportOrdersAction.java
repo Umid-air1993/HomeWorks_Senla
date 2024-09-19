@@ -8,7 +8,6 @@ public class AddImportOrdersAction implements Action {
         this.dataBase = dataBase;
     }
 
-    //        MenuItem item=new MenuItem("Import Garage", new Action() {
     @Override
     public void execute() {
         try {

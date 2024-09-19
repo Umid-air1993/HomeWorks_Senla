@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DataBase implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private List<Master> masters;
     private List<Order> orders;
@@ -20,6 +21,7 @@ public class DataBase implements Serializable {
         this.orders = new ArrayList<>();
         this.garages = new ArrayList<>();
     }
+
 
     public List<Master> getMasters() {
 
@@ -61,6 +63,7 @@ public class DataBase implements Serializable {
 
     public void addMaster(Master master) {
         masters.add(master);
+
     }
 
     public void addOrder(Order order) {
@@ -175,7 +178,7 @@ public class DataBase implements Serializable {
             }
         } catch (IOException e) {
             System.out.println("Error import orders!!!" + e.getMessage());
-            ;
+
         }
     }
 
@@ -234,5 +237,8 @@ public class DataBase implements Serializable {
     public void update(DataBase newDataBase) {
         this.masters = newDataBase.masters;
         this.garages = newDataBase.garages;
+    }
+    public void connect(){
+        System.out.println("Connecting to DataBase...");
     }
 }
