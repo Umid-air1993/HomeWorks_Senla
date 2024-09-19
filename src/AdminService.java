@@ -6,7 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 public class AdminService implements Serializable {
+    @Inject
     private DataBase dataBase;
+
+    public AdminService() {
+    }
 
     public AdminService(DataBase dataBase) {
         this.dataBase = dataBase;
@@ -163,5 +167,9 @@ public class AdminService implements Serializable {
         if (!found1) {
             System.out.println("Order whith ID " + orderID + " is not found");
         }
+    }
+
+    public void executeService() {
+        dataBase.connect();
     }
 }

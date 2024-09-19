@@ -1,11 +1,41 @@
+import java.io.IOException;
 import java.util.Properties;
 
 public class Builder {
+
+    @ConfigProperty(configFileName = "src/app.properties", propertyName = "database.url")
+    private String databaseUrl;
+
+    @ConfigProperty(configFileName = "src/app.properties", propertyName = "database.username")
+    private String databaseUsername;
+
+    @ConfigProperty(configFileName = "src/app.properties", propertyName = "database.password")
+    private String databasePassword;
+
+    @Inject
+    private DataBase dataBase;
+
+    @Inject
+    private AdminService adminService;
+
+    @Inject
+    private PermissionManager permissionManager;
+
     private Menu rootMenu;
 
     public Builder() {
         this.rootMenu = new Menu("Main menu ");
 
+
+    }
+    public void configure() throws IOException, IllegalAccessException, InstantiationException {
+        Configuration.loadConfig(this);
+
+        DependencyInjector.injectDependencies(this);
+
+        System.out.println("Database URL: " + databaseUrl);
+        System.out.println("Database Username: " + databaseUsername);
+        System.out.println("Database Password: " + databasePassword);
     }
 
     public void buildMenu() {
@@ -14,7 +44,7 @@ public class Builder {
         PermissionManager permissionManager=new PermissionManager(new Properties());
 
         Menu addMenu = new Menu("Add ");
-        addMenu.addMenuItem(new MenuItem("Add the master", new AddmasterAction(dataBase), rootMenu));
+        addMenu.addMenuItem(new MenuItem("Add the master", new AddmasterAction(dataBase,adminService), rootMenu));
         addMenu.addMenuItem(new MenuItem("Add the garage ", new AddGarageAction(dataBase), rootMenu));
         addMenu.addMenuItem(new MenuItem("Add the Order", new AddOrderAction(dataBase,adminService), rootMenu));
         addMenu.addMenuItem(new MenuItem("Add free place garage ", new AddFreePlaceToGarageAction(dataBase,adminService), rootMenu));
